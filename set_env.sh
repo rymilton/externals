@@ -4,10 +4,9 @@ echo ""
 echo ">> Setting Environment Variables for CERNLIB"
 echo ""
 
-export SOFT=/user/a/alaoui/software # external, ahmed dir
 
 export CERNVER=2005 # hardcoded
-export CERN=${SOFT}/cern # ahmed dir
+export CERN=/u/scigroup/cvmfs/scicomp/sw/el7/cernlib/
 export CERN_LEVEL=$CERNVER
 export CERN_ROOT=${CERN}/${CERN_LEVEL}
 export CERN_LIB=${CERN_ROOT}/lib

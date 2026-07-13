@@ -398,6 +398,7 @@ cc  note that these deltae_cc's are calculated as follows:
 cc deltae_cc = (1.5)*(Z/R)*(hbar*c)*alpha*0.775
 cc the 0.775 comes from Aste EPJ A 26 167 (2005)
 cc also, all deltae_cc's are computed for Z-1, not Z!/-* 
+cc the corrections for lead and tin were calculated with  Re=1.1*iA**(1./3.)+0.86*iA**(-1./3.)
                
               if(iA.eq.1) then  !Hydrogen
                  deltae_cc = 0.0
@@ -417,6 +418,8 @@ cc also, all deltae_cc's are computed for Z-1, not Z!/-*
                  deltae_cc = 0.00944
               elseif(iA.eq.64) then !Copper	 
                  deltae_cc = 0.0102
+              elseif(iA.eq.119) then !Tin
+                 deltae_cc = 0.0147
               elseif(iA.eq.197) then !Gold	  
                  deltae_cc = 0.0199
               elseif(iA.eq.208) then !Lead	  
@@ -679,7 +682,7 @@ C The only integral is over the E0.
       REAL AVGN,AVGA,AVGM,AMUM   
       REAL*4 EPP,EPLO,E0HI,E0LO,E0P,FAC,SIGEFF,AI11,AI1,AI2,
      >       ANS1,ANS2,ANS3,SIGMA
-      REAL*4 FTSAI,BREMS,QUADMO_R
+      REAL*4 FTSAI,BREMS,QUADMO_R, FUNCQE
       INTEGER NLVL
       CHARACTER*1  CSTYPE                                               
       EXTERNAL     FUNCQE                                               
@@ -766,7 +769,7 @@ C The only integral is over the E0.
 
       REAL*4 EPP,SIGMA,SIGEFF,FTSAI,FAC,AI11,AI1,AI2,EPLO,E0HI,E0LO,
      >       E0P,ANS1,ANS2,ANS3
-      REAL*4 QUADMO_R,BREMS       
+      REAL*4 QUADMO_R,BREMS,FUNCE       
       INTEGER NLVL
 
       EXTERNAL       FUNCE
@@ -2074,6 +2077,7 @@ cc  note that these deltae_cc's are calculated as follows:
 cc deltae_cc = (1.5)*(Z/R)*(hbar*c)*alpha*0.775
 cc the 0.775 comes from Aste EPJ A 26 167 (2005)
 cc also, all deltae_cc's are computed for Z-1, not Z!/-* 
+cc the corrections for lead and tin were calculated with  Re=1.1*iA**(1./3.)+0.86*iA**(-1./3.)
        
 
          
@@ -2086,31 +2090,22 @@ cc also, all deltae_cc's are computed for Z-1, not Z!/-*
 	elseif(iA.eq.4) then !Helium-4
 	  	   deltae_cc = 0.0010
 	elseif(iA.eq.9) then !Beryllium
-	  
 	   deltae_cc = 0.001875
 	elseif(iA.eq.12) then !Carbon
-	
 	   deltae_cc = 0.00292
 	elseif(iA.eq.27) then !Aluminum
-	  
 	   deltae_cc = 0.0061
-      
-        elseif(iA.eq.56) then ! Iron
-           deltae_cc = 0.00944
-	
-        elseif(iA.eq.64) then !Copper
-	 
+      elseif(iA.eq.56) then ! Iron
+         deltae_cc = 0.00944
+      elseif(iA.eq.64) then !Copper
 	   deltae_cc = 0.0102
-
+      elseif(iA.eq.119) then !Tin
+        deltae_cc = 0.0147
 	elseif(iA.eq.197) then !Gold
 	   deltae_cc = 0.0199  
-
-  
       elseif(iA.eq.208) then !Lead        
            deltae_cc = 0.02035
 	endif
-
-
    
        beame_cc  = E0+ deltae_cc
        eprime_cc = EP+ deltae_cc
@@ -8889,7 +8884,7 @@ C      END
 C BACKGROUND AND RESONANCE CONTRIBUTION FOR ATWOOD'S FIT                
 
       Implicit none
-      REAL*8  WM,QSQ,C(80),WSQ,OMEGA,X,XPX,PIEMSQ,B1,EB1,B2,BBKG
+      REAL*8  WM,QSQ,C(40),WSQ,OMEGA,X,XPX,PIEMSQ,B1,EB1,B2,BBKG
       REAL*8  RAM,RMA,RWD,QSTARN,QSTARO,TERM,TERMO,GAMRES,BRWIG,RES
       REAL*8  RESSUM,EB2,BRES
       INTEGER   LSPIN(4),INDEX,J,K                                             
