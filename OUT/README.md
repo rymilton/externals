@@ -1,0 +1,1 @@
+This directory is where the details output will be stored. Note this directory has to exist to run the code.
