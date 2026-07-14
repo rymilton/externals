@@ -34,5 +34,9 @@ Output files are in `OUT/` and `runout/`
 ## Adding a target for Coulomb corrections:
 The code will use a default calculation for the Coulomb corrections if the target is not in `externals_all.f`. To add the target, add `deltae_cc` to [this block](https://github.com/rymilton/externals/blob/main/externals_all.f#L403-L427)  and [this block](https://github.com/rymilton/externals/blob/main/externals_all.f#L2084-L2107). `deltae_cc` can be calculated using the equations here [https://github.com/rymilton/externals/blob/main/externals_all.f#L398-L401](https://github.com/rymilton/externals/blob/main/externals_all.f#L398-L401). Note that the number should be in GeV!!
 
+## Applying radiative and Coulomb corrections to cross sections:
+- To apply the radiative corrections, divide the cross section in a given bin by `Sig_Rad`/`Sig_Born` for that bin from the `runout/RGE_C.out` file.
+- To apply the Coulomb corrections, multiply the cross section in a given bin by `C_cor` for that bin from the `runout/RGE_C.out` file.
+
 ## Common errors
 - If you get the error, `Fortran runtime error: Cannot open file 'OUT/RGE_C_details.out': No such file or directory`, you need to create the directory `OUT`.
